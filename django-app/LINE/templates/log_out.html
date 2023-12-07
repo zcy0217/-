@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>登出</title>
+</head>
+<body>
+    <!-- head -->
+    {% include 'includes/header.html' %} 
+    <div class="container min-height">
+        <div class="inputblocktext center mt-2">
+            <h2>您已成功登出!</h2>
+        </div> 
+        <div class="inputblocktext center mt-2">
+            <p>系統將在 2 秒後自動返回首頁...</p>
+        </div> 
+    </div>
+
+    
+    <!-- JavaScript 代码 -->
+    <script>
+        setTimeout(function() {
+            window.location.href = "/"; // 跳转到首页的 URL
+        }, 2000); // 2000 毫秒（即2秒）
+    </script>
+
+    <!-- footer -->
+    {% include 'includes/footer.html' %}
+</body>
+</html>

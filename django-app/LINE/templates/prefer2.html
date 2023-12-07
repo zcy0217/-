@@ -1,0 +1,45 @@
+{% load static %}  <!-- 載入靜態css -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Preference Results</title>
+        <!-- html放templates，css、照片放static -->
+    <!-- 載入靜態css -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/share.css' %}">
+    <link rel="stylesheet" href="{% static 'css/header.css' %}">
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+</head>
+<body>
+    <!-- head -->
+    {% include 'includes/header.html' %} 
+    <div class="container">
+        <div class="row center mt-5">
+            <div class="">
+                <h2>您的偏好</h2>
+                <p>體驗型態順位一: {{ preferences.choice1 }}</p>
+                <p>體驗型態順位二: {{ preferences.choice2 }}</p>
+                <p>體驗型態順位三: {{ preferences.choice3 }}</p>
+                <p>體驗型態順位四: {{ preferences.choice4 }}</p>
+                <p>美食型態順位一: {{ preferences_food.choice5 }}</p>
+                <p>美食型態順位二: {{ preferences_food.choice6 }}</p>
+            </div>
+            <div class="buttons-container">
+                <a href="/"> <!-- 链接到首页 -->
+                    <button class="button">返回首頁</button>
+                </a>
+                <a href="/prefer_form/"> <!-- 链接到prefer_form.html -->
+                    <button class="button">我要修改</button>
+                </a>
+            </div>
+        </div>
+            
+    </div> 
+   
+    <!-- footer -->
+    {% include 'includes/footer.html' %}
+</body>
+</html>

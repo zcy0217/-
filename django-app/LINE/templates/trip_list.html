@@ -1,0 +1,96 @@
+<body>
+  <!-- head -->
+  {% include 'includes/header.html' %} 
+
+  {% block content %}
+  <div class="container min-height">
+      <div class="yellotitle center mt-3">
+          <h1>行程管理</h1>
+      </div>
+      <table class="table table-hover align-middle">
+        <thead>
+          <tr>
+              <th scope="col" class="col-md-4">行程名稱</th>
+              <th scope="col" class="col-md-4">上次儲存時間</th>
+              <th scope="col" class="d-flex justify-content-end">操作按鈕</th>
+          </tr>
+        </thead>
+      {% if trips %}
+      {% for trip in trips %}
+        <tbody>
+            <tr>
+                <th scope="row">{{ trip.title }}</th>
+                <td>{{ trip.datetime|date:"Y年n月j日 G:i" }}</td>
+                <td class="d-flex justify-content-end triplist">
+                  <a href="{% url 'trip_detail' trip.id %}"  class="btnTable">編輯</a>
+                  <button class="delete-button btnTable" data-trip-id="{{ trip.id }}">刪除</button>
+                  <button class="btnTable">列印</button>
+                </td>
+            </tr>
+        </tbody>
+          
+          {% endfor %}
+        {% else %}
+        <p>您尚未儲存任何行程</p>
+        {% endif %}
+      </table>
+          
+  </div>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const deleteButtons = document.querySelectorAll('.delete-button');
+        
+        deleteButtons.forEach(button => {
+          button.addEventListener('click', function() {
+            const tripId = this.getAttribute('data-trip-id');
+            const confirmation = confirm('確定要刪除行程嗎？');
+
+            if (confirmation) {
+              // 使用 JavaScript 的 fetch 函數發送 POST 請求
+              fetch(`/trip_delete/${tripId}/`, {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'X-CSRFToken': getCookie('csrftoken')  // 請確保在你的頁面中有一個名為 csrftoken 的 CSRF 憑證
+                },
+                body: JSON.stringify({})  // POST 請求的 body 可以是空的 JSON 對象
+              })
+              .then(response => response.json())
+              .then(data => {
+                alert(data.message);
+                // 刷新頁面或進行其他處理
+                window.location.reload();
+              })
+              .catch(error => {
+                console.error('Error:', error);
+              });
+            }
+          });
+        });
+
+        // 用於獲取 CSRF 憑證的函數
+        function getCookie(name) {
+          let cookieValue = null;
+          if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+              const cookie = cookies[i].trim();
+              // 找到名為 csrftoken 的 cookie
+              if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+              }
+            }
+          }
+          return cookieValue;
+        }
+      });
+    </script>
+  {% endblock %}
+
+  <!-- footer -->
+  {% include 'includes/footer.html' %}
+</body>
+
+
+

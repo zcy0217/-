@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% include 'header.html' %}
+    {% block headmessage %} {% endblock %}
+    <hr>
+    {% block content %}
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading" align=center>
+            <h1>歡迎來到旅遊推薦系統!</h1>
+            <h1>這是「首頁」</h1>
+    </div>
+    {% if request.user.is_authenticated %}
+    <div class="panel-heading" align=center>
+        <p >Hi~ {{request.user}} 您已經登入囉~!</p>
+        <a href= "{% url 'log_out' %}">登出</a>
+        <a href= "{% url 'prefer_form' %}">我要填偏好表單</a>
+    </div>
+    {% else %}
+    <div class="panel-heading" align=center>
+        <p>您尚未登入唷~</p>
+        <a href= "{% url 'login' %}">我要登入</a>
+        <a href= "{% url 'register' %}">我要註冊</a>
+    </div>    
+    {% endif %}  
+    {% endblock %}
+    <hr>
+    {% include 'footer.html' %} 	
+    
+</body>
+</html>
