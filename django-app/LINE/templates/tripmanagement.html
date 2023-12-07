@@ -1,0 +1,75 @@
+{% load static %}  <!-- 載入靜態css -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>旅駁包</title>
+
+    <!-- html放templates，css、照片放static -->
+    <!-- 載入靜態css -->
+    <link rel="icon" type="image/png" href="/static/img/favicon.png" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/share.css' %}">
+    <link rel="stylesheet" href="{% static 'css/header.css' %}">
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <!-- head -->
+    {% include 'includes/header.html' %} 
+
+    <div class="container min-height">
+        <div class="yellotitle center mt-3">
+            <h1>行程管理</h1>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <form action="">
+                    <div class="g-0 input-group search">
+                        <div class="form-floating">
+                            <input type="text" class="form-control " placeholder="行程查詢">
+                            <label for="location"><i class="bi bi-search"></i>行程查詢，請輸入關鍵字</label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-3 center">
+                <a href="/" class="newtrip">新建行程</a>
+            </div>
+        </div>
+        <div class="mt-4">
+            <table class="table table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th scope="col" class="col-md-4">行程名稱</th>
+                        <th scope="col" class="col-md-4">旅遊時間</th>
+                        <th scope="col" class="d-flex justify-content-end">操作按鈕</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">台南一日遊</th>
+                        <td>2023/01/01</td>
+                        <td class="d-flex justify-content-end"><button class="btnTable">編輯</button><button class="btnTable">刪除</button><button class="btnTable">列印</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        
+    </div>
+    
+    <!-- footer -->
+    {% include 'includes/footer.html' %}
+</body>
+
+</html>
+

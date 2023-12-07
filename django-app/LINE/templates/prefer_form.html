@@ -1,0 +1,128 @@
+{% load static %}  <!-- 載入靜態css -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>旅駁包</title>
+
+    <!-- html放templates，css、照片放static -->
+    <!-- 載入靜態css -->
+    <link rel="icon" type="image/png" href="/static/img/favicon.png" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/share.css' %}">
+    <link rel="stylesheet" href="{% static 'css/header.css' %}">
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <!-- head -->
+    {% include 'includes/header.html' %} 
+
+    <div class="container">
+        <div class="yellotitle center mt-4">
+            <h1>偏好設定</h1>
+        </div>
+    </div>
+    <div class="container">
+        <div class="inputblocktext center mt-2">
+            <p>Hi~ {{request.user}} 您好</p>
+        </div> 
+    </div>
+    <div class="container">
+        <div class="inputblocktext center">
+            <p>請藉由下列選單進行偏好設定讓我們能夠更了解您的旅遊需求<br>
+            讓旅駁包為您規劃屬於您的完美旅遊行程</p>
+        </div>
+    </div>
+    <form method="post" id="combined-form" action="/preference/">
+        {% csrf_token %}
+        <div class="container preferencecenter">
+            <div class="form-container">
+                <h2 class="yellotitle">景點偏好</h2>
+                <div><td><p>
+                    <label for="{{ form.choice1.id_for_label }}" class="inputblocktext">體驗型態順位一：</label>
+                    <select name="{{ form.choice1.name }}" id="{{ form.choice1.id_for_label }}" class="inputblock">
+                        <option selected>請選擇</option>
+                        <option value="親子共遊">親子共遊</option>
+                        <option value="室內活動">室內活動</option>
+                        <option value="室外活動">室外活動</option>
+                        <option value="團體出遊">團體出遊</option>
+                    </select>
+                </p></td></div>
+        
+                <div><td><p>
+                    <label for="{{ form.choice2.id_for_label }}" class="inputblocktext">體驗型態順位二：</label>
+                    <select name="{{ form.choice2.name }}" id="{{ form.choice2.id_for_label }}" class="inputblock">
+                        <option selected>請選擇</option>
+                        <option value="親子共遊">親子共遊</option>
+                        <option value="室內活動">室內活動</option>
+                        <option value="室外活動">室外活動</option>
+                        <option value="團體出遊">團體出遊</option>
+                    </select>
+                </p></td></div>
+        
+                <div><td><p>
+                    <label for="{{ form.choice3.id_for_label }}" class="inputblocktext">體驗型態順位三：</label>
+                    <select name="{{ form.choice3.name }}" id="{{ form.choice3.id_for_label }}" class="inputblock">
+                        <option selected>請選擇</option>
+                        <option value="親子共遊">親子共遊</option>
+                        <option value="室內活動">室內活動</option>
+                        <option value="室外活動">室外活動</option>
+                        <option value="團體出遊">團體出遊</option>
+                    </select>
+                </p></td></div>
+        
+                <div><td><p>
+                    <label for="{{ form.choice4.id_for_label }}" class="inputblocktext">體驗型態順位四：</label>
+                    <select name="{{ form.choice4.name }}" id="{{ form.choice4.id_for_label }}" class="inputblock">
+                        <option selected>請選擇</option>
+                        <option value="親子共遊">親子共遊</option>
+                        <option value="室內活動">室內活動</option>
+                        <option value="室外活動">室外活動</option>
+                        <option value="團體出遊">團體出遊</option>
+                    </select>
+                </p></td></div>     
+            </div>        
+            <div class="form-container">
+                <h2 class="yellotitle">美食偏好</h2>
+                <div><td><p>   
+                    <label for="{{ form_food.choice5.id_for_label }}" class="inputblocktext">美食型態順位一：</label>
+                    <select name="{{ form_food.choice5.name }}" id="{{ form_food.choice5.id_for_label }}" class="inputblock">
+                        <option selected>請選擇</option>
+                        <option value="街邊美食">街邊美食</option>
+                        <option value="餐廳美食">餐廳美食</option>
+                    </select>   
+                </p></td></div>
+                <div><td><p>   
+                    <label for="{{ form_food.choice6.id_for_label }}" class="inputblocktext">美食型態順位二：</label>
+                    <select name="{{ form_food.choice6.name }}" id="{{ form_food.choice6.id_for_label }}" class="inputblock">
+                        <option selected>請選擇</option>
+                        <option value="街邊美食">街邊美食</option>
+                        <option value="餐廳美食">餐廳美食</option>
+                    </select>
+                </p></td></div>
+            </div>   
+        </div>
+
+        <!-- 提交按鈕 -->
+        <div class="centered-button">
+            <input type="submit" name="submit" value="提交"  class="bluebtn center mb-3">
+        </div>
+    </form>
+    
+
+
+
+    <!-- footer -->
+    {% include 'includes/footer.html' %}
+</body>
+
+</html>
