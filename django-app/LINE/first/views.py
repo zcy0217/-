@@ -13,12 +13,23 @@ from django.contrib.auth.views import LoginView
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
-
+from vendor.filters import Travel_Filter
+from vendor import models
 
 #FBVs的方法
 def home(request):
     # 在此编写用于呈现首页内容的逻辑
-    return render(request, 'home.html')
+
+    #Search Function
+    data = models.Main.objects.all().order_by('-star')
+    Filters = Travel_Filter(queryset = data)
+
+    if request.method == 'POST': #user input
+        Filters = Travel_Filter(request.POST, queryset = data)
+
+    return render(request, 'home.html', {
+        'Filters' : Filters,
+    })
 
    
 

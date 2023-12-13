@@ -30,82 +30,81 @@
             {% else %}
             {% endif %}
         </div> 
+
         <!-- search -->
-        <form action="">
-            <div class="row g-0 input-group input-group-lg search">
-                <div class="form-floating col-md-4">
-                    <input type="text" class="form-control " placeholder="目的地">
-                    <label for="location"><i class="bi bi-search"></i>目的地</label>
-                </div>
-                <div class="form-floating col-md-2">
-                    <input type="date" class="form-control" placeholder="出發日期">
-                    <label for="startdate"><i class="bi bi-calendar-week"></i>出發日期</label>
-                </div>
-                <div class="form-floating col-md-2">
-                    <input type="date" class="form-control" placeholder="結束日期">
-                    <label for="enddate"><i class="bi bi-calendar-week"></i>結束日期</label>
-                </div>
-                <div class="form-floating col-md-4">
-                    <select class="form-select">
-                        <option value="1">1人</option>
-                        <option value="2">2人(含)以上</option>
+        <form action="" method="POST">
+                {% csrf_token %}
+                <div class="row g-0 input-group input-group-lg search">
+                    <div class="form-floating col-md-4">
+                        {{Filters.form.address}}
+                        <label for="location"><i class="bi bi-search"></i>目的地</label>
+                    </div>
+                    <div class="form-floating col-md-2">
+                        {{Filters.form.date_input}}
+                        <label for="startdate"><i class="bi bi-calendar-week"></i>出發日期</label>
+                    </div>
+                    <div class="form-floating col-md-2">
+                        <input type="date" class="form-control" placeholder="結束日期">
+                        <label for="enddate"><i class="bi bi-calendar-week"></i>結束日期</label>
+                    </div>
+                    <div class="form-floating col-md-4">
+                        <select class="form-select">
+                            <option value="1">1人</option>
+                            <option value="2">2人(含)以上</option>
                     </select>
-                    <label for="number"><i class="bi bi-people-fill"></i>出遊人數</label>
+                        <label for="number"><i class="bi bi-people-fill"></i>出遊人數</label>
+                    </div>
+                </div>
+            <!-- search select  -->
+            {% if user.is_authenticated %}
+            {% else %}
+            <div class="row">
+                <div class="col-sm-6 mb-2">
+                    <div class="form-floating">
+                        {{Filters.form.travel_type}}
+                        <label for="travelTypeSelect">旅遊型態</label>
+                    </div>
+                </div>
+                <div class="col-sm-5 mb-2">
+                    <div class="form-floating">
+                        {{Filters.form.food_type}}
+                        <label for="foodTypeSelect">美食種類</label>
+                    </div>
+                </div>
+                <div class="col-sm-1">
+                    <div class="form-floating">
+                        <input type="submit" id="Sent" name="Sent" value=" 查詢 ">
+                    </div>
                 </div>
             </div>
         </form>
-        <!-- search select  -->
-        {% if user.is_authenticated %}
-        {% else %}
-        <div class="row">
-            <div class="col-sm-6 mb-2">
-                <div class="form-floating">
-                    <select class="form-select" id="travelTypeSelect" aria-label="Floating label select example">
-                        <option selected>請選擇</option>
-                        <option value="親子場所">親子場所</option>
-                        <option value="室內">室內</option>
-                        <option value="室外">室外</option>
-                        <option value="團體">團體</option>
-                    </select>
-                    <label for="travelTypeSelect">旅遊型態</label>
-                </div>
-            </div>
-            <div class="col-sm-6 mb-2">
-                <div class="form-floating">
-                    <select class="form-select" id="foodTypeSelect" aria-label="Floating label select example">
-                        <option selected>請選擇</option>
-                        <option value="街邊">街邊美食</option>
-                        <option value="餐廳">餐廳美食</option>
-                    </select>
-                    <label for="foodTypeSelect">美食種類</label>
-                </div>
-            </div>
-        </div>
-        {% endif %}
+            {% endif %}
         <!-- info -->
         <div class="row">
-            <div class="col-md-4 mt-3">
-                <div class="info-box">
-                    <div class="row">
-                        <div class="col-md-5 img-over-hidd">
-                            <img src="{% static 'img/1597320584.webp' %}" alt="" class="img-fluid-h">
-                        </div>
-                        <div class="col-md-7">
-                            <div class="info-content">
-                                <div class="info-text">
-                                    <h2 class="title">大溪笠復威斯汀度假酒店</h2>
-                                    <p class="text">地址：<span>709 台南市安南區台江大道 3 段 600 號</span></p>
-                                    <p class="text">電話：<span>6-287-3335</span></p>
-                                    <p class="text">公休日：<span>08:00~12:00</span></p>
-                                    <p class="text">門票價格(每人)：<span>100元</span></p>
+            {%for result in Filters.qs%}
+                <div class="col-md-4 mt-3">
+                    <div class="info-box">
+                        <div class="row">
+                            <div class="col-md-5 img-over-hidd">
+                                <img src="{% static 'img/'%}{{result.name}}.jpg" alt="" class="img-fluid-h">
+                            </div>
+                            <div class="col-md-7">
+                                <div class="info-content">
+                                    <div class="info-text">
+                                        <h2 class="title">{{result.name}}</h2>
+                                        <p class="text">地址：<span>{{result.address}}</span></p>
+                                        <p class="text">電話：<span>{{result.tel}}</span></p>
+                                        <p class="text">公休日：<span>{{result.restday}}</span></p>
+                                        <p class="text">門票價格(每人)：<span>{{result.price}}</span></p>
+                                    </div>
+                                    <a href="#" class="btn">查看詳情</a>
                                 </div>
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Modal">查看詳情</button>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-4 mt-3">
+            {%endfor%}
+            <!-- <div class="col-md-4 mt-3">
                 <div class="info-box">
                     <div class="row">
                         <div class="col-md-5 img-over-hidd">
@@ -147,7 +146,7 @@
                     </div>
                 </div>
             </div>       
-        </div>
+        </div> -->
         <!-- more info -->
         <div class="row">
             <div class="col-12 moreinfo">

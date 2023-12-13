@@ -124,26 +124,28 @@
                             <div class="col-md-4 mt-3">
                                 <div class="info-box">
                                     <div class="row">
+                                        {%for result in Filters.qs%}
                                         <div class="col-md-5 img-over-hidd">
-                                            <img src="{% static 'img/1597320584.webp' %}" alt="" class="img-fluid-h">
+                                            <img src="{% static 'img/'%}{{result.name}}.jpg" alt="" class="img-fluid-h">
                                         </div>
                                         <div class="col-md-7">
                                             <div class="info-content">
                                                 <div class="info-text">
-                                                    <h2 class="title">大溪笠復威斯汀度假酒店</h2>
-                                                    <p class="text">地址：<span>709 台南市安南區台江大道 3 段 600 號</span></p>
-                                                    <p class="text">電話：<span>6-287-3335</span></p>
-                                                    <p class="text">公休日：<span>08:00~12:00</span></p>
-                                                    <p class="text">門票價格(每人)：<span>100元</span></p>
+                                                    <h2 class="title">{{result.name}}</h2>
+                                                    <p class="text">地址：<span>{{result.address}}</span></p>
+                                                    <p class="text">電話：<span>{{result.tel}}</span></p>
+                                                    <p class="text">公休日：<span>{{result.restday}}</span></p>
+                                                    <p class="text">門票價格(每人)：<span>{{result.price}}</span></p>
                                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Modal">查看詳情</button>
                                                     <a href="#" class="btn">加入行程</a>
                                                 </div>
                                             </div>
                                         </div>
+                                        {% endfor %}
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4 mt-3">
+                            <!-- <div class="col-md-4 mt-3">
                                 <div class="info-box">
                                     <div class="row">
                                         <div class="col-md-5 img-over-hidd">
@@ -186,7 +188,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>      
+                            </div> 
                         </div>
                     </div>
                 </div>
@@ -259,7 +261,7 @@
                                     </div>
                                 </div>
                             </div>      
-                        </div>
+                        </div> 
                     </div>
                 </div>
                 <div class="tab-pane fade" id="child-tab-pane" role="tabpanel" aria-labelledby="child-tab" tabindex="2">
@@ -549,7 +551,7 @@
                             </div>       
                         </div>
                     </div>
-                </div>
+                </div>-->
             </div>
         </div>
     </div>
