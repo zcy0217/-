@@ -17,143 +17,103 @@
     <link rel="stylesheet" href="{% static 'css/share.css' %}">
     <link rel="stylesheet" href="{% static 'css/header.css' %}">
     <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+    <link rel="icon" type="image/png" href="/static/img/favicon.png" />
 
 </head>
 
 <body>
     <!-- head -->
-    {% include 'includes/header.html' %} 
-    <div class="container">
-        <div class="inputblocktext center mt-2">
-            {% if user.is_authenticated %}
-            <p>Hi~ {{request.user}} 您好 您已登入~</p>
-            {% else %}
-            {% endif %}
-        </div> 
-
-        <!-- search -->
-        <form action="" method="POST">
-                {% csrf_token %}
-                <div class="row g-0 input-group input-group-lg search">
-                    <div class="form-floating col-md-4">
-                        {{Filters.form.address}}
-                        <label for="location"><i class="bi bi-search"></i>目的地</label>
+    {% include 'includes/header.html' %}
+    <div class="home">
+        <div class="container">
+            <div class="inputblocktext center mt-2">
+                {% if user.is_authenticated %}
+                <p>Hi~ {{request.user}} 您好 您已登入~</p>
+                {% else %}
+                {% endif %}
+            </div> 
+            <!-- search -->
+            <form action="" method="POST">
+                    {% csrf_token %}
+                    <div class="row g-0 input-group input-group-lg search">
+                        <div class="form-floating col-md-4">
+                            {{Filters.form.address}}
+                            <label for="location"><i class="bi bi-search"></i>目的地</label>
+                        </div>
+                        <div class="form-floating col-md-2">
+                            {{Filters.form.date_input}}
+                            <label for="startdate"><i class="bi bi-calendar-week"></i>出發日期</label>
+                        </div>
+                        <div class="form-floating col-md-2">
+                            <input type="date" class="form-control" placeholder="結束日期">
+                            <label for="enddate"><i class="bi bi-calendar-week"></i>結束日期</label>
+                        </div>
+                        <div class="form-floating col-md-4">
+                            <select class="form-select">
+                                <option value="1">1人</option>
+                                <option value="2">2人(含)以上</option>
+                        </select>
+                            <label for="number"><i class="bi bi-people-fill"></i>出遊人數</label>
+                        </div>
                     </div>
-                    <div class="form-floating col-md-2">
-                        {{Filters.form.date_input}}
-                        <label for="startdate"><i class="bi bi-calendar-week"></i>出發日期</label>
+                <!-- search select  -->
+                {% if user.is_authenticated %}
+                {% else %}
+                <div class="row">
+                    <div class="col-sm-6 mb-2">
+                        <div class="form-floating">
+                            {{Filters.form.travel_type}}
+                            <label for="travelTypeSelect">旅遊型態</label>
+                        </div>
                     </div>
-                    <div class="form-floating col-md-2">
-                        <input type="date" class="form-control" placeholder="結束日期">
-                        <label for="enddate"><i class="bi bi-calendar-week"></i>結束日期</label>
+                    <div class="col-sm-5 mb-2">
+                        <div class="form-floating">
+                            {{Filters.form.food_type}}
+                            <label for="foodTypeSelect">美食種類</label>
+                        </div>
                     </div>
-                    <div class="form-floating col-md-4">
-                        <select class="form-select">
-                            <option value="1">1人</option>
-                            <option value="2">2人(含)以上</option>
-                    </select>
-                        <label for="number"><i class="bi bi-people-fill"></i>出遊人數</label>
+                    <div class="col-sm-1">
+                        <div class="form-floating">
+                            <input type="submit" id="Sent" name="Sent" value=" 查詢 ">
+                        </div>
                     </div>
                 </div>
-            <!-- search select  -->
-            {% if user.is_authenticated %}
-            {% else %}
+            </form>
+                {% endif %}
+            <!-- info -->
             <div class="row">
-                <div class="col-sm-6 mb-2">
-                    <div class="form-floating">
-                        {{Filters.form.travel_type}}
-                        <label for="travelTypeSelect">旅遊型態</label>
-                    </div>
-                </div>
-                <div class="col-sm-5 mb-2">
-                    <div class="form-floating">
-                        {{Filters.form.food_type}}
-                        <label for="foodTypeSelect">美食種類</label>
-                    </div>
-                </div>
-                <div class="col-sm-1">
-                    <div class="form-floating">
-                        <input type="submit" id="Sent" name="Sent" value=" 查詢 ">
-                    </div>
-                </div>
-            </div>
-        </form>
-            {% endif %}
-        <!-- info -->
-        <div class="row">
-            {%for result in Filters.qs%}
-                <div class="col-md-4 mt-3">
-                    <div class="info-box">
-                        <div class="row">
-                            <div class="col-md-5 img-over-hidd">
-                                <img src="{% static 'img/'%}{{result.name}}.jpg" alt="" class="img-fluid-h">
-                            </div>
-                            <div class="col-md-7">
-                                <div class="info-content">
-                                    <div class="info-text">
-                                        <h2 class="title">{{result.name}}</h2>
-                                        <p class="text">地址：<span>{{result.address}}</span></p>
-                                        <p class="text">電話：<span>{{result.tel}}</span></p>
-                                        <p class="text">公休日：<span>{{result.restday}}</span></p>
-                                        <p class="text">門票價格(每人)：<span>{{result.price}}</span></p>
+                {%for result in Filters.qs%}
+                    <div class="col-md-4 mt-3">
+                        <div class="info-box">
+                            <div class="row">
+                                <div class="col-md-5 img-over-hidd">
+                                    <img src="{% static 'img/'%}{{result.name}}.jpg" alt="" class="img-fluid-h">
+                                </div>
+                                <div class="col-md-7">
+                                    <div class="info-content">
+                                        <div class="info-text">
+                                            <h2 class="title">{{result.name}}</h2>
+                                            <p class="text">地址：<span>{{result.address}}</span></p>
+                                            <p class="text">電話：<span>{{result.tel}}</span></p>
+                                            <p class="text">公休日：<span>{{result.restday}}</span></p>
+                                            <p class="text">門票價格(每人)：<span>{{result.price}}</span></p>
+                                        </div>
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Modal">查看詳情</button>
                                     </div>
-                                    <a href="#" class="btn">查看詳情</a>
                                 </div>
                             </div>
                         </div>
                     </div>
+                {%endfor%}
+            <!-- more info -->
+            <div class="row">
+                <div class="col-12 moreinfo">
+                    <a href="#">更多景點</a>
                 </div>
-            {%endfor%}
-            <!-- <div class="col-md-4 mt-3">
-                <div class="info-box">
-                    <div class="row">
-                        <div class="col-md-5 img-over-hidd">
-                            <img src="{% static 'img/1597320584.webp' %}" alt="" class="img-fluid-h">
-                        </div>
-                        <div class="col-md-7">
-                            <div class="info-content">
-                                <div class="info-text">
-                                    <h2 class="title">大溪笠復威斯汀度假酒店</h2>
-                                    <p class="text">地址：<span>709 台南市安南區台江大道 3 段 600 號</span></p>
-                                    <p class="text">電話：<span>6-287-3335</span></p>
-                                    <p class="text">公休日：<span>08:00~12:00</span></p>
-                                    <p class="text">門票價格(每人)：<span>100元</span></p>
-                                </div>
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Modal">查看詳情</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 mt-3">
-                <div class="info-box">
-                    <div class="row">
-                        <div class="col-md-5 img-over-hidd">
-                            <img src="{% static 'img/1597320584.webp' %}" alt="" class="img-fluid-h">
-                        </div>
-                        <div class="col-md-7">
-                            <div class="info-content">
-                                <div class="info-text">
-                                    <h2 class="title">大溪笠復威斯汀度假酒店</h2>
-                                    <p class="text">地址：<span>709 台南市安南區台江大道 3 段 600 號</span></p>
-                                    <p class="text">電話：<span>6-287-3335</span></p>
-                                    <p class="text">公休日：<span>08:00~12:00</span></p>
-                                    <p class="text">門票價格(每人)：<span>100元</span></p>
-                                </div>
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Modal">查看詳情</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>       
-        </div> -->
-        <!-- more info -->
-        <div class="row">
-            <div class="col-12 moreinfo">
-                <a href="#">更多景點</a>
             </div>
         </div>
-    </div>        
+    </div> 
+            
     <!-- 小視窗 -->
     <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -165,7 +125,8 @@
             <div class="modal-body">
                 <div class="container">
                     <div class="row">
-                        <img src="{% static 'img/1597320584.webp' %}" alt="" class="img-fluid">
+                        <!-- 小視窗圖片先註解掉，能用了再開 -->
+                        <!-- <img src="{% static 'img/' %}" alt="" class="img-fluid">  -->
                         <div class="detailinfo mt-3">
                             <h2 class="title">中信金融管理學院</h2>
                             <h3 class="detailheadY">台南市</h3>
